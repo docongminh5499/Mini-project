@@ -40,3 +40,5 @@ cc.game.onStart = function () {
     }, this);
 };
 cc.game.run();
+
+// test
