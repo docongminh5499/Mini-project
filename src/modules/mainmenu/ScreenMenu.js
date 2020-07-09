@@ -21,21 +21,22 @@ var ScreenMenu = cc.Layer.extend({
         logo.setPosition(cc.p(size.width / 2, size.height * 0.7));
         this.addChild(logo, 0);
 
-        var btnExit = gv.commonButton(200, 64, cc.winSize.width/2, size.height * 0.2, "Exit");
+        var btnExit = gv.commonButton(size.width / 3.2, size.height / 17.75, cc.winSize.width/2, size.height * 0.2, "Exit");
         this.addChild(btnExit);
         btnExit.addClickEventListener(this.onSelectExit.bind(this));
 
-        var btnOptions = gv.commonButton(200, 64, cc.winSize.width/2, size.height * 0.2 + 75, "Options");
+        var btnOptions = gv.commonButton(size.width / 3.2, size.height / 17.75, cc.winSize.width/2, size.height * 0.2 + size.height / 17.75 , "Options");
         this.addChild(btnOptions);
         btnOptions.addClickEventListener(this.onSelectOptions.bind(this));
 
-        var btnNewGame = gv.commonButton(200, 64, cc.winSize.width/2, size.height * 0.2 + 75 * 2, "New Game");
+        var btnNewGame = gv.commonButton(size.width / 3.2, size.height / 17.75, cc.winSize.width/2, size.height * 0.2 + 2 * size.height / 17.75, "New Game");
         this.addChild(btnNewGame);
         btnNewGame.addClickEventListener(this.onSelectNewGame.bind(this));
     },
     onSelectExit:function(sender)
     {
-        cc.Director.getInstance().end();
+        cc.director.end();
+        //cc.game.end();
     },
     onSelectOptions:function(sender)
     {
