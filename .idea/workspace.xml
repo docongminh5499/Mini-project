@@ -46,7 +46,31 @@
         <entry file="file://$PROJECT_DIR$/src/base/UIFactory.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+=======
+              <caret line="30" column="22" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Resource.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/Resource.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="24" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="21" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="21" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
               <folding />
             </state>
           </provider>
@@ -66,7 +90,11 @@
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="42" column="13" selection-start-line="36" selection-start-column="14" selection-end-line="42" selection-end-column="13" />
+=======
+              <caret line="6" column="22" selection-start-line="5" selection-start-column="6" selection-end-line="6" selection-end-column="22" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
               <folding />
             </state>
           </provider>
@@ -82,11 +110,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScreenDragonbones.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ScreenDragonbones.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/modules/animation/ScreenDragonbones.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="-0.17634855">
               <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+=======
+            <state vertical-scroll-proportion="0.0">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7638889">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
               <folding />
             </state>
           </provider>
@@ -161,11 +204,15 @@
         <option value="$PROJECT_DIR$/src/base/Resource.js" />
         <option value="$PROJECT_DIR$/src/modules/localization/ScreenLocalization.js" />
         <option value="$PROJECT_DIR$/src/modules/animation/ScreenDragonbones.js" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/framework/GUI.js" />
         <option value="$PROJECT_DIR$/src/modules/mainmenu/ScreenMenu.js" />
         <option value="$PROJECT_DIR$/src/data/Resource.js" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/src/data/ResourceAnimation.js" />
+=======
+        <option value="$PROJECT_DIR$/main.js" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
       </list>
     </option>
   </component>
@@ -231,6 +278,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -265,9 +315,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -677,14 +724,22 @@
       <workItem from="1594088140411" duration="166000" />
       <workItem from="1594089239321" duration="5072000" />
       <workItem from="1594101854295" duration="15808000" />
+<<<<<<< HEAD
       <workItem from="1594211873840" duration="120000" />
       <workItem from="1594212026720" duration="646000" />
       <workItem from="1594215794774" duration="4229000" />
+=======
+      <workItem from="1594258101158" duration="63000" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="1696868000" />
+=======
+    <option name="totallyTimeSpent" value="1691936000" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -696,8 +751,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
     <editor active="false" />
+=======
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <editor active="true" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22941822" sideWeight="0.4892704" order="6" side_tool="false" content_ui="tabs" />
@@ -706,7 +766,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20930232" sideWeight="0.2" order="2" side_tool="false" content_ui="tabs" />
+=======
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284055" sideWeight="0.49580714" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19117647" sideWeight="0.4945946" order="0" side_tool="false" content_ui="combo" />
@@ -715,14 +778,15 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1719243" sideWeight="0.5054054" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27666315" sideWeight="0.31302083" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27666315" sideWeight="0.31302083" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21013728" sideWeight="0.20416667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.250264" sideWeight="0.28697917" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -885,6 +949,16 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/src/data/ResourceAnimation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37777779">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
     <entry file="file://$PROJECT_DIR$/src/base/network/InPacketFactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -892,6 +966,16 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/src/base/network/GameClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
     <entry file="file://$PROJECT_DIR$/src/framework/PoolObject.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -964,6 +1048,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frameworks/js-bindings/api/jsb_cocos2dx_experimental_video_auto_api.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.35972223">
           <caret line="39" column="21" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="21" />
         </state>
@@ -987,38 +1072,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4025" column="0" selection-start-line="4025" selection-start-column="0" selection-end-line="4025" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="-0.81805557">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frameworks/js-bindings/api/jsb_cocos2dx_baseframework_auto_api.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.33195022">
           <caret line="793" column="0" selection-start-line="793" selection-start-column="0" selection-end-line="793" selection-end-column="0" />
           <folding />
+=======
+        <state vertical-scroll-proportion="-1.275">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/win32/script/jsb_boot.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-0.4087137">
           <caret line="924" column="4" selection-start-line="924" selection-start-column="4" selection-end-line="924" selection-end-column="4" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.35972223">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="21" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jslist CMD.bat">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="3551" column="0" selection-start-line="3551" selection-start-column="0" selection-end-line="3551" selection-end-column="0" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/huong_dan_hcm.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+=======
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
@@ -1033,6 +1141,7 @@
     <entry file="file://$PROJECT_DIR$/editable.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1059,6 +1168,9 @@
         <state vertical-scroll-proportion="-2.033195">
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding />
+=======
+          <caret line="4025" column="0" selection-start-line="4025" selection-start-column="0" selection-end-line="4025" selection-end-column="0" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
         </state>
       </provider>
     </entry>
@@ -1089,7 +1201,11 @@
     <entry file="file://$PROJECT_DIR$/src/base/Resource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="15" column="24" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="24" />
+=======
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="21" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
           <folding />
         </state>
       </provider>
@@ -1113,7 +1229,11 @@
     <entry file="file://$PROJECT_DIR$/src/modules/mainmenu/ScreenMenu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="46" column="28" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+=======
+          <caret line="6" column="22" selection-start-line="5" selection-start-column="6" selection-end-line="6" selection-end-column="22" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
           <folding />
         </state>
       </provider>
@@ -1128,8 +1248,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/modules/animation/ScreenDragonbones.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-0.17634855">
           <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7638889">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+>>>>>>> b91e8ab75fff048a3bf6c64f566c39191ca05336
           <folding />
         </state>
       </provider>
