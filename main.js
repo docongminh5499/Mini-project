@@ -1,8 +1,10 @@
 
 var gv = gv || {};
 
-var DESIGN_RESOLUTION_WIDTH = 1136;
-var DESIGN_RESOLUTION_HEIGHT = 640;
+var DESIGN_RESOLUTION_WIDTH = 480;
+var DESIGN_RESOLUTION_HEIGHT = 852;
+var SHOW_FPS = true;
+
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -18,14 +20,14 @@ cc.game.onStart = function () {
     cc.loader.resPath = "res";
     cc.LoaderScene.preload(g_resources, function () {
         //hide fps
-        cc.director.setDisplayStats(true);
+        cc.director.setDisplayStats(SHOW_FPS);
         // Setup the resolution policy and design resolution size
         var frameSize = cc.view.getFrameSize();
         var ratio = frameSize.width/frameSize.height;
         if(ratio < 2){
-            cc.view.setDesignResolutionSize(DESIGN_RESOLUTION_WIDTH,DESIGN_RESOLUTION_HEIGHT, cc.ResolutionPolicy.FIXED_HEIGHT);
+            cc.view.setDesignResolutionSize(DESIGN_RESOLUTION_WIDTH, DESIGN_RESOLUTION_HEIGHT, cc.ResolutionPolicy.FIXED_HEIGHT);
         }else{
-            cc.view.setDesignResolutionSize(DESIGN_RESOLUTION_WIDTH,DESIGN_RESOLUTION_WIDTH/2, cc.ResolutionPolicy.SHOW_ALL);
+            cc.view.setDesignResolutionSize(DESIGN_RESOLUTION_HEIGHT, DESIGN_RESOLUTION_HEIGHT / 2, cc.ResolutionPolicy.SHOW_ALL);
         }
 
         // The game will be resized when browser size change

@@ -11,6 +11,13 @@ res.base.img_btn_disable =  "Default/Button_Disable.png";
 res.base.img_btn_press = "Default/Button_Disable.png";
 res.base.img_btn_normal = "Default/Button_Normal.png";
 
-res.base.menu_background = 'myRes/loading.png';
-res.base.logo = 'myRes/logo.png';
+res.base.menu = {
+    background: 'myRes/10.jpg',
+    logo: 'myRes/logo.png',
+    button: 'myRes/menu.png',
+    music: 'myRes/Music/mainMainMusic.mp3',
+    pack: 'myRes/textureTransparentPack.png'
+
+};
+
 res.base.game_background = 'myRes/textureTransparentPack.png';
