@@ -16,7 +16,8 @@ res.base.menu = {
     logo: 'myRes/logo.png',
     button: 'myRes/menu.png',
     music: 'myRes/Music/mainMainMusic.mp3',
-    pack: 'myRes/textureTransparentPack.png'
+    pack: 'myRes/textureTransparentPack.png',
+    plist_pack: 'myRes/textureTransparentPack.png'
 
 };
 
