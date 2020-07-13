@@ -17,8 +17,11 @@ res.base.menu = {
     button: 'myRes/menu.png',
     music: 'myRes/Music/mainMainMusic.mp3',
     pack: 'myRes/textureTransparentPack.png',
-    plist_pack: 'myRes/textureTransparentPack.png'
-
 };
 
+res.base.plist = {
+    pack: 'myRes/textureTransparentPack.plist',
+    ufo: 'myRes/b01.plist',
+    hit: 'myRes/textureOpaquePack.plist'
+}
 res.base.game_background = 'myRes/textureTransparentPack.png';
