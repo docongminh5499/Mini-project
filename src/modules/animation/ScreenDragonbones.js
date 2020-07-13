@@ -111,6 +111,7 @@ Plane.prototype = {
         bullet_2.setPosition(cc.p(bulletPositionX  + planeSize.width / 4, bulletPositionY));
         this.container.addChild(bullet, 2);
         this.container.addChild(bullet_2, 1);
+        this.container.bullets.concat([bullet, bullet_2]);
 
         bullet.runAction(cc.sequence(
             cc.MoveTo(0.7, cc.p(bulletPositionX - planeSize.width / 4, size.height + bullet.getContentSize().height)),
@@ -130,14 +131,20 @@ var Enemy = function (container) {
     this.container = container;
 
     var size = cc.director.getVisibleSize();
-    this.enemy.setPosition(cc.p(size.width / 2, size.height / 2));
-
-    container.addChild(this.enemy, 10);
+    var random_width = size.width * Math.random() * 0.8 + 0.1;
     this.initPlane();
+
+    this.enemy.setPosition(cc.p(random_width, size.height + this.enemy.getContentSize().height));
+    this.enemy.runAction(cc.MoveTo(5, cc.p(random_width, -this.enemy.getContentSize().height)));
+    container.addChild(this.enemy, 10);
 };
 
 Enemy.prototype = {
     initPlane: function() { cc.log('Abstract method, need implementation.') },
+    destroy: function() {
+        cc.log('AAAAAAAAA');
+        this.enemy.removeFromParent();
+    },
 };
 
 // Declare Implement Class Of Enemy
@@ -163,7 +170,7 @@ var EnemyManager = {
 
 // Implement detail of type 0 enemy
 EnemyType0.prototype.initPlane = function () {
-    cc.log('Heeeeeeeeeeee');
+    this.enemy.setRotationX(180);
 };
 
 
@@ -173,17 +180,33 @@ var ScreenDragonbones = cc.Layer.extend({
     _itemMenu:null,
     _beginPos:0,
     isMouseDown:false,
-    score: 0,
-    lives: 3,
 
     ctor:function() {
         this._super();
         this.plane = new Plane(this);
         this.ufo = UFO.getInstance();
+        this.score = 0;
+        this.lives = 3;
+        this.enemies = [];
+        this.bullets = [];
+
         this.createBackground();
         this.setupPlane();
+        this.schedule(() => this.enemies.push(EnemyManager.createEnemy(this)), 1);
 
-        EnemyManager.createEnemy(this);
+        var layer = this;
+        this.schedule(function() {
+            layer.enemies.forEach(function(enemy) {
+               for (var i = 0; i < layer.bullets.length; i++) {
+                   var enemyBox = enemy.getBoundingBox();
+                   var bullet = layer.bullets[i].getBoundingBox();
+                   if (cc.rectIntersectsRect(enemyBox, bullet)) {
+                       cc.log('Collision')
+                       enemy.destroy();
+                   }
+               }
+            });
+        }, 1 /60);
     },
     createBackground: function() {
         var size = cc.director.getVisibleSize();
@@ -210,9 +233,10 @@ var ScreenDragonbones = cc.Layer.extend({
             cc.callFunc(() => background_2.setPosition(cc.p(size.width / 2, size.height * 1.5 )))
         ).repeatForever());
 
-        setInterval(() => this.ufo.createUFO(this), 10000);
+        this.schedule(() => this.ufo.createUFO(this), 10);
+
     },
     setupPlane: function() {
-        setTimeout(this.plane.enableMove.bind(this.plane), 1000);
-    }
+        this.scheduleOnce(this.plane.enableMove.bind(this.plane), 1);
+    },
 });
