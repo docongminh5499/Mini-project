@@ -23,5 +23,10 @@ res.base.plist = {
     pack: 'myRes/textureTransparentPack.plist',
     ufo: 'myRes/b01.plist',
     hit: 'myRes/textureOpaquePack.plist'
-}
+};
+
+res.base.game = {
+    gameOver: 'myRes/gameOver.png'
+};
+
 res.base.game_background = 'myRes/textureTransparentPack.png';

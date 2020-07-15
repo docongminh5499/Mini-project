@@ -74,7 +74,6 @@ var ScreenMenu = cc.Layer.extend({
         fr.view(ScreenLocalization);
     },
     onSelectNewGame:function(sender) {
-        cc.audioEngine.stopMusic();
         fr.view(ScreenDragonbones);
     },
 });
