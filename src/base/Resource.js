@@ -26,7 +26,13 @@ res.base.plist = {
 };
 
 res.base.game = {
-    gameOver: 'myRes/gameOver.png'
+    gameOver: 'myRes/gameOver.png',
+    buttonClick: 'myRes/Music/buttonEffet.mp3',
+    fire: 'myRes/Music/fireEffect.mp3',
+    explode: 'myRes/Music/explodeEffect.mp3',
+    die: 'myRes/Music/shipDestroyEffect.mp3',
+    bgMusic: 'myRes/Music/bgMusic.mp3',
+
 };
 
 res.base.game_background = 'myRes/textureTransparentPack.png';

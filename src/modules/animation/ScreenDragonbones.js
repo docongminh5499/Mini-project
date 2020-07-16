@@ -2,26 +2,15 @@
  * Created by GSN on 7/9/2015.
  */
 
-
-function extend(subClass, superClass) {
-    var F = function () { };
-    F.prototype = superClass.prototype;
-    subClass.prototype = new F();
-    subClass.prototype.constructor = subClass;
-
-    subClass.superClass = superClass.prototype;
-    if (superClass.prototype.constructor == Object.prototype.constructor)
-        superClass.prototype.constructor = superClass;
-}
-
 var UFO = (function() {
     var singleton = null;
 
-    var constructor = function () {
-        cc.spriteFrameCache.addSpriteFrames(res.base.plist.ufo);
-        this.frame = [null, null, null, null];
-
-        this.createUFO = function(container) {
+    var constructor = cc.Class.extend({
+        ctor: function() {
+            cc.spriteFrameCache.addSpriteFrames(res.base.plist.ufo);
+            this.frame = [null, null, null, null];
+        },
+        createUFO: function (container) {
             var random_idx = Math.floor(Math.random() * this.frame.length);
             var ufo_obj = this.frame[random_idx];
             if (!ufo_obj) {
@@ -33,60 +22,43 @@ var UFO = (function() {
 
             var size = cc.director.getVisibleSize();
             var random_width = size.width * (0.15 + Math.random()*0.7);
-            ufo_obj.runAction(cc.sequence(
+            ufo_obj && ufo_obj.runAction(cc.sequence(
                 cc.callFunc(() => ufo_obj.setPosition(cc.p(random_width, size.height + ufo_obj.getContentSize().height))),
                 cc.MoveTo(7, cc.p(random_width, - ufo_obj.getContentSize().height))
             ));
         }
-    };
+    });
 
     return {
         getInstance: function() {
             if (!singleton) singleton = new constructor();
             return singleton;
         }
-
-
-        //var ship = new Ship();
-        //ship.abc();
     }
 })();
 
-//var BossShip = Ship.extend({
-//    abc: function(){
-//        this._super(x, y);
-//    }
-//});
-//
-//var Ship = cc.Class.extend({
-//    ctor: function(){
-//      //khoi tao o day
-//    },
-//
-//    abc: function(x, y){
-//
-//    },
-//});
-
-var Plane = function (container, name = '#ship03.png') {
-    cc.spriteFrameCache.addSpriteFrames(res.base.plist.hit);
-    var size = cc.director.getVisibleSize();
-    // Attr
-    this.rect = [cc.rect(0, 23, 100, 22), cc.rect(40, 0, 18, 70)];
-    this.container = container;
-    this.plane = new cc.Sprite(name);
-    this.stopFire = true;
-    this.explode = new cc.Sprite('#hit.png');
-    // Add and begin effect
-    this.explode.setVisible(false);
-    this.plane.setPosition(cc.p(size.width / 2, -this.plane.getContentSize().height));
-    this.plane.runAction(cc.MoveTo(1, cc.p(size.width/2, size.height * 0.1)));
-    // Add child
-    container.addChild(this.plane, 10);
-    container.addChild(this.explode, 10);
-};
-
-Plane.prototype = {
+var Plane = cc.Class.extend({
+   ctor: function (container, name = '#ship03.png') {
+       cc.spriteFrameCache.addSpriteFrames(res.base.plist.hit);
+       var size = cc.director.getVisibleSize();
+       // Attr
+       this.rect = [
+           { rect: cc.rect(0, 23, 100, 22), base: {x: 0, y: 23} },
+           { rect: cc.rect(40, 0, 18, 70), base: {x: 40, y: 0} }
+       ];
+       this.container = container;
+       this.plane = new cc.Sprite(name);
+       this.stopFire = true;
+       this.finishAnmation = true;
+       this.explode = new cc.Sprite('#hit.png');
+       // Add and begin effect
+       this.explode.setVisible(false);
+       this.plane.setPosition(cc.p(size.width / 2, -this.plane.getContentSize().height));
+       this.plane.runAction(cc.MoveTo(1, cc.p(size.width/2, size.height * 0.1)));
+       // Add child
+       container.addChild(this.plane, 10);
+       container.addChild(this.explode, 10);
+   },
     enableMove: function() {
         var plane_parent = this;
         cc.eventManager.addListener({
@@ -134,26 +106,9 @@ Plane.prototype = {
         bullet_2.setPosition(cc.p(bulletPositionX  + planeSize.width / 4, bulletPositionY));
         new_1 && this.container.addChild(bullet, 2);
         new_2 && this.container.addChild(bullet_2, 2);
-
-        //var size = cc.director.getVisibleSize();
-        //bullet.runAction(cc.sequence(
-        //    cc.MoveTo(0.7, cc.p(bulletPositionX - planeSize.width / 4, size.height + bullet.getContentSize().height)),
-        //    cc.callFunc(() => {
-        //        bullet.setVisible(false);
-        //        bullet.setPosition(cc.p(-1000, -1000));
-        //    })
-        //));
-        //
-        //bullet_2.runAction(cc.sequence(
-        //    cc.MoveTo(0.7, cc.p(bulletPositionX + planeSize.width / 4, size.height + bullet_2.getContentSize().height)),
-        //    cc.callFunc(() => {
-        //        bullet_2.setVisible(false);
-        //        bullet_2.setPosition(cc.p(-1000, -1000));
-        //    })
-        //));
     },
     fire: function () {
-        if (!this.stopFire) {
+        if (!this.stopFire && this.finishAnmation) {
             if (!this.haveFireAnimation) {
                 var animation = new cc.Animation();
                 animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('ship02.png'));
@@ -164,20 +119,24 @@ Plane.prototype = {
                 cc.animationCache.addAnimation(animation, 'fire');
                 this.haveFireAnimation = true;
             }
-
+            this.finishAnmation = false;
             var action = cc.animate(cc.animationCache.getAnimation('fire'));
             var sequence_action = cc.sequence(
+                cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.fire)),
                 action,
                 cc.callFunc(this.createBullet.bind(this)),
-                action.reverse()
+                action.reverse(),
+                cc.delayTime(0.3),
+                cc.callFunc(() => this.finishAnmation = true)
             );
             this.plane.runAction(sequence_action);
+
         }
     },
     getBoundingBox: function () {
         var plane_x = this.plane.getPositionX(), plane_y = this.plane.getPositionY();
         var plane_size = this.plane.getContentSize();
-       return cc.rect(plane_x - plane_size.width * 0.425, plane_y - plane_size.height * 0.425, plane_size.width * 0.85, plane_size.height * 0.85);
+        return cc.rect(plane_x - plane_size.width * 0.425, plane_y - plane_size.height * 0.425, plane_size.width * 0.85, plane_size.height * 0.85);
     },
     pause: function() {
         cc.eventManager.pauseTarget(this.plane);
@@ -187,6 +146,7 @@ Plane.prototype = {
         this.plane.setPosition(cc.p(size.width / 2, -this.plane.getContentSize().height));
         this.plane.runAction(cc.MoveTo(1, cc.p(size.width/2, size.height * 0.1)));
         this.plane.setVisible(true);
+        this.finishAnmation = true;
         setTimeout(() => cc.eventManager.resumeTarget(this.plane), 1000);
     },
     destroy: function() {
@@ -199,48 +159,55 @@ Plane.prototype = {
         animation.setRestoreOriginalFrame(true);
         animation.setLoops(4);
 
+        this.stopFire = true;
         this.plane.setVisible(false);
         this.explode.setPosition(this.plane.getPosition());
         this.explode.setVisible(true);
 
         this.explode.runAction(cc.sequence(
+            cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.die)),
             cc.animate(animation).reverse(),
             cc.animate(animation),
             cc.callFunc(() => this.explode.setVisible(false))
         ));
     },
-   intersectWith: function(rect) {
-       for (var index =0; index < this.rect.length; index++) {
+    intersectWith: function(rect) {
+        for (var index = 0; index < this.rect.length; index++) {
             var myRect = this.rect[index];
-            myRect.x = this.plane.getPositionX() - this.plane.getContentSize().width / 2 + myRect.x;
-            myRect.y = this.plane.getPositionY() - this.plane.getContentSize().height / 2 + myRect.y;
+            myRect.rect.x = this.plane.getPositionX() - this.plane.getContentSize().width / 2 + myRect.base.x;
+            myRect.rect.y = this.plane.getPositionY() - this.plane.getContentSize().height / 2 + myRect.base.y;
+            if (cc.rectIntersectsRect(myRect.rect, rect)) return true;
+        }
+        return false;
+    },
+    updateRect: function() {
+        for (var index = 0; index < this.rect.length; index++) {
+            var myRect = this.rect[index];
+            myRect.rect.x = this.plane.getPositionX() - this.plane.getContentSize().width / 2 + myRect.base.x;
+            myRect.rect.y = this.plane.getPositionY() - this.plane.getContentSize().height / 2 + myRect.base.y;
+        }
+    }
+});
 
-           if (cc.rectIntersectsRect(myRect, rect)) {
-               return true;
-           }
-       };
-       return false;
-   }
-};
+// Abstract class Enemy
+var Enemy = cc.Class.extend({
+   ctor: function (container, name, type) {
+       this.name = name || '#E0.png';
+       this.type = type || 0;
+       this.enemy = new cc.Sprite(this.name);
+       this.container = container;
 
-// Abstract class Enemy ------------------------------------------
-var Enemy = function (container) {
-    this.enemy = new cc.Sprite(this.name || '#E0.png');
-    this.container = container;
+       this.explode = new cc.Sprite('#hit.png');
+       this.explode.setVisible(false);
 
-    this.explode = new cc.Sprite('#hit.png');
-    this.explode.setVisible(false);
+       this.initPlane();
+       this.fly();
 
-    this.initPlane();
-    this.fly();
+       container.addChild(this.enemy, 10);
+       container.addChild(this.explode, 10);
 
-    container.addChild(this.enemy, 10);
-    container.addChild(this.explode, 10);
-
-    this.interval = setInterval(() => this.enemy.isVisible() && this.fire(), 1000);
-};
-
-Enemy.prototype = {
+       this.interval = setInterval(() => this.enemy && this.enemy.isVisible() && this.fire(), 1000);
+   },
     initPlane: function() { cc.log('Abstract method, need implementation.') },
     destroy: function() {
         //this.enemy.removeFromParent();
@@ -249,7 +216,7 @@ Enemy.prototype = {
         animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode2.png'));
         animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode3.png'));
 
-        animation.setDelayPerUnit(1 / 28);
+        animation.setDelayPerUnit(1 / 14);
         animation.setRestoreOriginalFrame(true);
 
 
@@ -259,6 +226,7 @@ Enemy.prototype = {
         this.explode.setVisible(true);
 
         this.explode.runAction(cc.sequence(
+            cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.explode)),
             cc.animate(animation),
             cc.callFunc(() => {
                 this.explode.setVisible(false);
@@ -295,36 +263,46 @@ Enemy.prototype = {
         clearInterval(this.interval);
     },
     intersectWith: function(rect) {
-        return this.rect.all(myRect => cc.rectIntersectsRect(myRect, rect));
+        for (var index = 0; index < this.rect.length; index++) {
+            var myRect = this.rect[index];
+            myRect.rect.x = this.enemy.getPositionX() - this.enemy.getContentSize().width / 2 + myRect.base.x;
+            myRect.rect.y = this.enemy.getPositionY() - this.enemy.getContentSize().height / 2 + myRect.base.y;
+            if (cc.rectIntersectsRect(myRect.rect, rect)) return true;
+        }
+        return false;
+    },
+    updateRect: function() {
+        for (var index = 0; index < this.rect.length; index++) {
+            var myRect = this.rect[index];
+            myRect.rect.x = this.enemy.getPositionX() - this.enemy.getContentSize().width / 2 + myRect.base.x;
+            myRect.rect.y = this.enemy.getPositionY() - this.enemy.getContentSize().height / 2 + myRect.base.y;
+        }
     }
-};
+});
 
 // Declare Implement Class Of Enemy
-var EnemyType0 = function (container) {
-    this.rect = [cc.rect(0, 0, 74, 39)];
-    this.name = '#E0.png';
-    this.type = 0;
-    EnemyType0.superClass.constructor.call(this, container);
-};
+var EnemyType0 = Enemy.extend({
+    ctor: function (container) {
+        this._super(container, '#E0.png', 0);
+        this.rect = [ {rect: cc.rect(0, 0, 74, 39), base: {x: 0, y: 0}} ];
+    },
+    initPlane: function () {
+        this.enemy.setRotationX(180);
+    }
+});
 
-var EnemyType1 = function (container) {
-    this.rect = [cc.rect(0, 15 ,96, 14), cc.rect(35, 0, 26, 68)];
-    this.name = '#E1.png';
-    this.type = 1;
-    EnemyType1.superClass.constructor.call(this, container);
-};
-
-// Extend Class From Enemy
-([EnemyType0, EnemyType1]).forEach(subClass => extend(subClass, Enemy));
-
-// Implement detail of type 0 enemy
-EnemyType0.prototype.initPlane = function () {
-    this.enemy.setRotationX(180);
-};
-
-EnemyType1.prototype.initPlane = function () {
-    this.enemy.setRotationX(180);
-};
+var EnemyType1 = Enemy.extend({
+    ctor: function (container) {
+        this._super(container, '#E1.png', 1);
+        this.rect = [
+            {rect: cc.rect(0, 15 ,96, 14), base: {x: 0, y: 15}},
+            {rect: cc.rect(35, 0, 26, 68), base: {x: 35, y: 0}}
+        ];
+    },
+    initPlane: function () {
+        this.enemy.setRotationX(180);
+    }
+});
 
 var MyLayer = cc.LayerColor.extend({
     ctor: function() {
@@ -376,9 +354,10 @@ var ScreenDragonbones = cc.Layer.extend({
                 enemy_plane.enemy.setVisible(true);
                 enemy_plane.fly();
             }
+            //cc.log(this.enemies.length.toString() + ' - ' +  this.bullets.length + ' - ' + this.enemyBullets.length);
         }, 1.5);
 
-        this.schedule(() => this.plane.fire(), 0.1);
+        this.schedule(() => this.plane.fire(), 1/60);
 
         this.schedule(() => {
             this.bullets.forEach(function (bullet) {
@@ -410,17 +389,19 @@ var ScreenDragonbones = cc.Layer.extend({
                     enemy.enemy.setPosition(cc.p(-1000, 1000));
                 }
 
-                if (enemy.enemy.isVisible() && this.plane.plane.isVisible() && cc.rectIntersectsRect(enemy.enemy.getBoundingBox(), this.plane.getBoundingBox())) {
-                   this.gameOver();
+                if (enemy.enemy.isVisible() && this.plane.plane.isVisible()) {
+                    this.plane.updateRect();
+                    this.plane.rect.forEach(obj => {
+                        if (enemy.intersectWith(obj.rect))
+                            this.gameOver();
+                    })
                 }
             });
 
             this.enemies.forEach(enemy => {
                 this.bullets.forEach(bullet => {
-
-                    var enemyBox = enemy.enemy.getBoundingBox();
                     var bulletBox = bullet.getBoundingBox();
-                        if (enemy.enemy.isVisible() && bullet.isVisible() && cc.rectIntersectsRect(enemyBox, bulletBox)) {
+                        if (enemy.enemy.isVisible() && bullet.isVisible() && enemy.intersectWith(bulletBox)) {
                             enemy.destroy();
                             bullet.setVisible(false);
                             bullet.setPosition(cc.p(-1000, -1000));
@@ -430,7 +411,7 @@ var ScreenDragonbones = cc.Layer.extend({
                         }
                 });
             });
-        }, 1 /60);
+        }, 1 / 60);
     },
     createBackground: function() {
         var size = cc.director.getVisibleSize();
@@ -524,7 +505,10 @@ var ScreenDragonbones = cc.Layer.extend({
             if (!this.playAgainButton) {
                 this.playAgainButton = gv.commonButton(200, 64, cc.winSize.width/2, size.height * 0.3, "Play Again");
                 this.addChild(this.playAgainButton, 100);
-                this.playAgainButton.addClickEventListener(this.resetGame.bind(this));
+                this.playAgainButton.addClickEventListener(() => {
+                    cc.audioEngine.playEffect(res.base.game.buttonClick);
+                    this.resetGame.call(this);
+                });
             }
 
             if (!this.back) {
@@ -532,6 +516,7 @@ var ScreenDragonbones = cc.Layer.extend({
                 this.addChild(this.back, 100);
                 this.back.addClickEventListener(() => {
                     this.enemies.forEach(enemy => enemy.clearInterval());
+                    cc.audioEngine.playEffect(res.base.game.buttonClick);
                     fr.view(ScreenMenu);
                 });
             }

@@ -65,15 +65,19 @@ var ScreenMenu = cc.Layer.extend({
         this.addChild(btnNewGame);
         btnNewGame.addClickEventListener(this.onSelectNewGame.bind(this));
 
-        cc.audioEngine.playMusic(res.base.menu.music, true);
+        cc.audioEngine.playMusic(res.base.game.bgMusic, true);
     },
     onSelectExit:function(sender) {
+        cc.audioEngine.playEffect(res.base.game.buttonClick);
         cc.director.end();
     },
     onSelectOptions:function(sender) {
+        cc.audioEngine.playEffect(res.base.game.buttonClick);
         fr.view(ScreenLocalization);
     },
     onSelectNewGame:function(sender) {
+        cc.audioEngine.playEffect(res.base.game.buttonClick);
+        cc.audioEngine.playMusic(res.base.menu.music, true);
         fr.view(ScreenDragonbones);
     },
 });
