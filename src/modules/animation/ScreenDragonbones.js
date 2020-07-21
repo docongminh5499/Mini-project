@@ -51,6 +51,7 @@ var Plane = cc.Class.extend({
        this.stopFire = true;
        this.finishAnmation = true;
        this.explode = new cc.Sprite('#hit.png');
+       this.level = 1;
        // Add and begin effect
        this.explode.setVisible(false);
        this.plane.setPosition(cc.p(size.width / 2, -this.plane.getContentSize().height));
@@ -113,7 +114,7 @@ var Plane = cc.Class.extend({
                 var animation = new cc.Animation();
                 animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('ship02.png'));
                 animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('ship01.png'));
-                animation.setDelayPerUnit(1 / 50);
+                animation.setDelayPerUnit(1 / 28);
                 animation.setRestoreOriginalFrame(true);
 
                 cc.animationCache.addAnimation(animation, 'fire');
@@ -126,7 +127,7 @@ var Plane = cc.Class.extend({
                 action,
                 cc.callFunc(this.createBullet.bind(this)),
                 action.reverse(),
-                cc.delayTime(0.3),
+                cc.delayTime(0.3 - this.level * 0.05 > 0.1 ? 0.3 - this.level * 0.05 : 0.1),
                 cc.callFunc(() => this.finishAnmation = true)
             );
             this.plane.runAction(sequence_action);
@@ -196,7 +197,9 @@ var Enemy = cc.Class.extend({
        this.type = type || 0;
        this.enemy = new cc.Sprite(this.name);
        this.container = container;
+       this.direction = [-1, 0, 1][Math.floor(Math.random() * 3)];
 
+       this.health = 3;
        this.explode = new cc.Sprite('#hit.png');
        this.explode.setVisible(false);
 
@@ -208,38 +211,69 @@ var Enemy = cc.Class.extend({
 
        this.interval = setInterval(() => this.enemy && this.enemy.isVisible() && this.fire(), 1000);
    },
+    update: function() {
+        this.enemy.isVisible() && this.enemy.setPosition(cc.p(this.enemy.getPositionX() + this.direction * 2, this.enemy.getPositionY() - 5));
+
+        if (this.enemy.getPositionX() > cc.director.getVisibleSize().width && this.direction == 1) this.direction = -1;
+        else if (this.enemy.getPositionX() < 0 && this.direction == -1) this.direction = 1;
+
+        if (this.enemy.getPositionY() < 0) {
+            this.enemy.setVisible(false);
+            this.enemy.setPosition(cc.p(-1000, 1000));
+        }
+    },
     initPlane: function() { cc.log('Abstract method, need implementation.') },
     destroy: function() {
-        //this.enemy.removeFromParent();
-        var animation = new cc.Animation();
-        animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode1.png'));
-        animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode2.png'));
-        animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode3.png'));
+       if (this.health == 1) {
+           //this.enemy.removeFromParent();
+           var animation = new cc.Animation();
+           animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode1.png'));
+           animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode2.png'));
+           animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode3.png'));
 
-        animation.setDelayPerUnit(1 / 14);
-        animation.setRestoreOriginalFrame(true);
+           animation.setDelayPerUnit(1 / 14);
+           animation.setRestoreOriginalFrame(true);
 
 
-        this.enemy.setVisible(false);
+           this.enemy.setVisible(false);
 
-        this.explode.setPosition(this.enemy.getPosition());
-        this.explode.setVisible(true);
+           this.explode.setPosition(this.enemy.getPosition());
+           this.explode.setVisible(true);
 
-        this.explode.runAction(cc.sequence(
-            cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.explode)),
-            cc.animate(animation),
-            cc.callFunc(() => {
-                this.explode.setVisible(false);
-                this.explode.setPosition(cc.p(-1000, 1000));
-                this.enemy.setPosition(cc.p(-1000, 1000));
-            })
-        ));
+           this.explode.runAction(cc.sequence(
+               cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.explode)),
+               cc.animate(animation),
+               cc.callFunc(() => {
+                   this.explode.setVisible(false);
+                   this.explode.setPosition(cc.p(-1000, 1000));
+                   this.enemy.setPosition(cc.p(-1000, 1000));
+               })
+           ));
+           return true;
+       } else {
+           var animation = new cc.Animation();
+           animation.addSpriteFrame(cc.spriteFrameCache.getSpriteFrame('explode1.png'));
+           animation.setDelayPerUnit(1 / 14);
+           animation.setRestoreOriginalFrame(true);
 
+           this.explode.setPosition(cc.p(this.enemy.getPositionX(), this.enemy.getPositionY() - 30));
+           this.explode.setVisible(true);
+
+           this.explode.runAction(cc.sequence(
+               //cc.callFunc(() => cc.audioEngine.playEffect(res.base.game.explode)),
+               cc.animate(animation),
+               cc.callFunc(() => this.explode.setVisible(false))
+           ));
+           this.health -= 1;
+           return false;
+       }
     },
     fly: function() {
         var size = cc.director.getVisibleSize();
         var random_width = size.width * Math.random() * 0.8 + 0.1;
         this.enemy.setPosition(cc.p(random_width, size.height + this.enemy.getContentSize().height));
+        this.health = 3;
+        this.direction = [-1, 0, 1][Math.floor(Math.random() * 3)];
         //this.enemy.runAction(cc.MoveTo(5, cc.p(random_width, -this.enemy.getContentSize().height)));
     },
     fire: function () {
@@ -308,16 +342,28 @@ var MyLayer = cc.LayerColor.extend({
     ctor: function() {
         var size = cc.director.getVisibleSize();
         this._super(cc.color(0, 0, 0, 0), size.width, size.height);
+        this.isFadeIn = false;
+        this.isFadeOut = false;
         this.opacityMax = 200;
         this.step = 10;
     },
     fadeIn: function() {
-        this.setOpacity(this.getOpacity() + this.step);
-        this.getOpacity() < this.opacityMax && setTimeout(() => this.fadeIn(), 50);
+        if (!this.isFadeOut) {
+            this.isFadeIn = true;
+            this.setOpacity(this.getOpacity() + this.step);
+
+            if (this.getOpacity() < this.opacityMax) setTimeout(() => this.fadeIn(), 10);
+            else this.isFadeIn = false;
+        }
     },
     fadeOut: function() {
-        this.setOpacity(this.getOpacity() - this.step);
-        this.getOpacity() > 0 && setTimeout(() => this.fadeOut(), 10);
+        if (!this.isFadeIn) {
+            this.isFadeOut = true;
+            this.setOpacity(this.getOpacity() - this.step);
+
+            if (this.getOpacity() > 0) setTimeout(() => this.fadeOut(), 10);
+            else this.isFadeOut = false;
+        }
     }
 });
 
@@ -357,9 +403,9 @@ var ScreenDragonbones = cc.Layer.extend({
             //cc.log(this.enemies.length.toString() + ' - ' +  this.bullets.length + ' - ' + this.enemyBullets.length);
         }, 1.5);
 
-        this.schedule(() => this.plane.fire(), 1/60);
-
         this.schedule(() => {
+            this.plane.fire();
+
             this.bullets.forEach(function (bullet) {
                 bullet.isVisible() && bullet.setPosition(cc.p(bullet.getPositionX(), bullet.getPositionY() + 12));
                 if (bullet.getPositionY() > cc.director.getVisibleSize().height) {
@@ -383,11 +429,7 @@ var ScreenDragonbones = cc.Layer.extend({
             });
 
             this.enemies.forEach(enemy => {
-                enemy.enemy.isVisible() && enemy.enemy.setPosition(cc.p(enemy.enemy.getPositionX(), enemy.enemy.getPositionY() - 5));
-                if (enemy.enemy.getPositionY() < 0) {
-                    enemy.enemy.setVisible(false);
-                    enemy.enemy.setPosition(cc.p(-1000, 1000));
-                }
+                enemy.update();
 
                 if (enemy.enemy.isVisible() && this.plane.plane.isVisible()) {
                     this.plane.updateRect();
@@ -402,16 +444,18 @@ var ScreenDragonbones = cc.Layer.extend({
                 this.bullets.forEach(bullet => {
                     var bulletBox = bullet.getBoundingBox();
                         if (enemy.enemy.isVisible() && bullet.isVisible() && enemy.intersectWith(bulletBox)) {
-                            enemy.destroy();
+                            var die = enemy.destroy();
                             bullet.setVisible(false);
                             bullet.setPosition(cc.p(-1000, -1000));
-
-                            this.score += 1;
-                            this.scoreText.setString(this.score);
+                            if (die) {
+                                this.score += 1;
+                                this.scoreText.setString(this.score);
+                                this.plane.level = 1 + Math.floor(this.score / 10);
+                            }
                         }
                 });
             });
-        }, 1 / 60);
+        }, 1/60);
     },
     createBackground: function() {
         var size = cc.director.getVisibleSize();
@@ -553,6 +597,6 @@ var ScreenDragonbones = cc.Layer.extend({
             this.bestScore.setVisible(true);
 
             this.plane.pause();
-        }, 0.5);
+        }, 0.2);
     }
 });
